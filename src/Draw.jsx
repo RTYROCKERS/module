@@ -93,7 +93,7 @@ export default function DoodleClassifier() {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
+    <div style={{ textAlign: "center", padding: "20px", color: "#000" }}>
       <p style={{ fontSize: "1.1em", marginBottom: "0.8em" }}>
         Try drawing any one of the following:
         <br />
