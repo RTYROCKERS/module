@@ -259,6 +259,35 @@ export default function LanderMissionGame() {
           <button onClick={() => window.location.reload()}>Reset</button>
         </div>
       )}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', margin: '10px 0' }}>
+        <button
+          onMouseDown={() => userInput.left = true}
+          onMouseUp={() => userInput.left = false}
+          onTouchStart={() => userInput.left = true}
+          onTouchEnd={() => userInput.left = false}
+        >
+          ◀️ Left
+        </button>
+
+        <button
+          onMouseDown={() => userInput.throttleUp = true}
+          onMouseUp={() => userInput.throttleUp = false}
+          onTouchStart={() => userInput.throttleUp = true}
+          onTouchEnd={() => userInput.throttleUp = false}
+        >
+          🔼 Throttle
+        </button>
+
+        <button
+          onMouseDown={() => userInput.right = true}
+          onMouseUp={() => userInput.right = false}
+          onTouchStart={() => userInput.right = true}
+          onTouchEnd={() => userInput.right = false}
+        >
+          ▶️ Right
+        </button>
+      </div>
+
       <canvas ref={canvasRef} width={600} height={400} />
     </div>
   )
