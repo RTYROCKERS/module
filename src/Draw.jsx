@@ -104,23 +104,30 @@ export default function DoodleClassifier() {
 
       <canvas
         ref={canvasRef}
-        width={400}
-        height={400}
+        width={300}
+        height={300}
         style={{
           border: "2px solid black",
           background: "#fff",
           touchAction: "none",
-          marginTop: "10px"
+          marginTop: "10px",
+          maxWidth: "90%",
+          width: "100%",
+          height: "auto"
         }}
       />
 
-      <div style={{ marginTop: 10 }}>
-        <button onClick={handleSubmit} disabled={loading}>
+
+      <div style={{ textAlign: "center", padding: "20px", maxWidth: "95vw", margin: "0 auto" }}>
+
+        <div style={{ marginTop: 10 }}>
+        <button onClick={handleSubmit} disabled={loading} style={{ padding: "8px 16px", fontSize: "1em" }}>
           Submit
         </button>
-        <button onClick={handleClear} style={{ marginLeft: "10px" }}>
+        <button onClick={handleClear} style={{ padding: "8px 16px", marginLeft: "10px", fontSize: "1em" }}>
           Clear
         </button>
+        </div>
       </div>
 
       <p style={{ marginTop: 20, fontSize: "1.2em" }}>{prediction}</p>
