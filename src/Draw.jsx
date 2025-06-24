@@ -104,18 +104,18 @@ export default function DoodleClassifier() {
 
       <canvas
         ref={canvasRef}
-        width={300}
-        height={300}
+        width={400}
+        height={400}
         style={{
           border: "2px solid black",
           background: "#fff",
           touchAction: "none",
           marginTop: "10px",
-          maxWidth: "90%",
-          width: "100%",
+          maxWidth: "100%",
           height: "auto"
         }}
       />
+
 
 
       <div style={{ textAlign: "center", padding: "20px", maxWidth: "95vw", margin: "0 auto" }}>
