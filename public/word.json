@@ -1,0 +1,57 @@
+[
+  {
+    "question": "What does a computer do with words to understand them?",
+    "options": [
+      "Reads them like a person",
+      "Turns them into pictures",
+      "Turns them into numbers",
+      "Asks someone else"
+    ],
+    "answer": "Turns them into numbers",
+    "explanation": "Computers convert words into numbers to understand their meaning."
+  },
+  {
+    "question": "Why do similar words stay close together in meaning space?",
+    "options": [
+      "They start with the same letter",
+      "They sound the same",
+      "They have similar meanings",
+      "They are long words"
+    ],
+    "answer": "They have similar meanings",
+    "explanation": "Words with similar meanings are placed close together in AI's meaning space."
+  },
+  {
+    "question": "In the sentence 'She dropped the subject', what does 'dropped' mean?",
+    "options": [
+      "To let something fall",
+      "To stop doing something",
+      "To pick something up",
+      "To hide something"
+    ],
+    "answer": "To stop doing something",
+    "explanation": "'Dropped' in this context means quitting or leaving something, like a subject in school."
+  },
+  {
+    "question": "Which sentence means something different even though it uses the same word?",
+    "options": [
+      "He threw the ball and she threw the ball",
+      "She dropped the pen and she dropped the idea",
+      "She opened the book and she opened the book again",
+      "He kicked the ball and he kicked the ball again"
+    ],
+    "answer": "She dropped the pen and she dropped the idea",
+    "explanation": "The word 'dropped' means different things in each sentence — one is physical, the other is abstract."
+  },
+  {
+    "question": "What does the Word Visualizer tool show?",
+    "options": [
+      "How fast you can type",
+      "Where words and sentences appear in meaning space",
+      "How drawings are made",
+      "Who writes the best sentence"
+    ],
+    "answer": "Where words and sentences appear in meaning space",
+    "explanation": "The Word Visualizer shows how meaning changes depending on the words and their context."
+  }
+]

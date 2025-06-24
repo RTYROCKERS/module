@@ -1,0 +1,62 @@
+[
+  {
+    "question": "What is AI?",
+    "options": ["Artificial Ice", "Automated Inference", "Artificial Intelligence", "Augmented Identity"],
+    "answer": "Artificial Intelligence",
+    "explanation": "AI stands for Artificial Intelligence, which enables machines to mimic human intelligence."
+  },
+  {
+    "question": "Which language is popular for AI?",
+    "options": ["Python", "HTML", "CSS", "SQL"],
+    "answer": "Python",
+    "explanation": "Python is widely used in AI because of its rich libraries and ease of use."
+  },
+  {
+    "question": "What does 'trial and error' mean?",
+    "options": ["Trying once and stopping", "Watching others do it", "Trying, failing, and trying again", "Copying answers"],
+    "answer": "Trying, failing, and trying again",
+    "explanation": "Trial and error means learning by doing something repeatedly and improving from mistakes."
+  },
+  {
+    "question": "In the Robot Learner activity, what helped the blindfolded student learn?",
+    "options": ["Silence", "Feedback from classmates", "Running fast", "Guessing"],
+    "answer": "Feedback from classmates",
+    "explanation": "The robot (blindfolded student) learned to find the object through positive and negative feedback."
+  },
+  {
+    "question": "What is 'reinforcement' in AI?",
+    "options": ["Repeating instructions", "Using a force", "Giving rewards or punishments", "Repairing a robot"],
+    "answer": "Giving rewards or punishments",
+    "explanation": "Reinforcement is a way of teaching AI using rewards for correct actions and punishments for wrong ones."
+  },
+  {
+    "question": "Why is the AI better at landing the spaceship than a human at first?",
+    "options": ["It guesses randomly", "It cheats", "It has tried many times", "It plays slowly"],
+    "answer": "It has tried many times",
+    "explanation": "The AI learns over thousands of attempts and improves by learning from its mistakes."
+  },
+  {
+    "question": "Which of the following is an example of a reward for AI?",
+    "options": ["Making a mistake", "Landing softly", "Crashing the spaceship", "Not moving"],
+    "answer": "Landing softly",
+    "explanation": "The AI receives a reward when it successfully lands the spaceship without crashing."
+  },
+  {
+    "question": "How does feedback help learning?",
+    "options": ["By confusing the learner", "By giving direction and improvement", "By stopping learning", "By making it boring"],
+    "answer": "By giving direction and improvement",
+    "explanation": "Feedback helps the learner understand what to change and how to improve."
+  },
+  {
+    "question": "Which of these is similar to how AI learns?",
+    "options": ["Learning to ride a bicycle", "Sleeping", "Watching TV", "Eating lunch"],
+    "answer": "Learning to ride a bicycle",
+    "explanation": "AI learns by trying and improving, just like how we learn to ride a bicycle after falling a few times."
+  },
+  {
+    "question": "What is the main idea of reinforcement learning?",
+    "options": ["Learning by reading", "Learning by watching videos", "Learning by rewards and punishments", "Learning by copying notes"],
+    "answer": "Learning by rewards and punishments",
+    "explanation": "Reinforcement learning is about improving performance through continuous feedback of rewards and punishments."
+  }
+]

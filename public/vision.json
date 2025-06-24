@@ -1,0 +1,62 @@
+[
+  {
+    "question": "What is a pixel?",
+    "options": ["A camera", "A color pencil", "A tiny square in an image", "A type of computer"],
+    "answer": "A tiny square in an image",
+    "explanation": "A pixel is the smallest part of an image, like a tile in a mosaic."
+  },
+  {
+    "question": "What does a computer actually see in a picture?",
+    "options": ["Shapes and animals", "Words and meanings", "Tiny colored squares", "The whole photo at once"],
+    "answer": "Tiny colored squares",
+    "explanation": "A computer sees a grid of colored squares (pixels), not full pictures."
+  },
+  {
+    "question": "Which of these is a feature in an image?",
+    "options": ["Music", "Curves or edges", "Time", "Speed"],
+    "answer": "Curves or edges",
+    "explanation": "Features like lines, corners, and curves help the computer understand shapes."
+  },
+  {
+    "question": "What is 'classification' in AI?",
+    "options": ["Drawing a picture", "Reading a sentence", "Guessing what an image is", "Saving a file"],
+    "answer": "Guessing what an image is",
+    "explanation": "Classification is when the computer says, 'This looks like a tree' based on features."
+  },
+  {
+    "question": "Why did students draw shapes on a grid in the activity?",
+    "options": ["To decorate the page", "To practice drawing", "To mimic how a computer sees images", "To write notes"],
+    "answer": "To mimic how a computer sees images",
+    "explanation": "Drawing in grids helps students understand how images are stored in pixels."
+  },
+  {
+    "question": "Which shape has a triangle on top and a square below?",
+    "options": ["Sun", "Umbrella", "House", "Circle"],
+    "answer": "House",
+    "explanation": "The house drawing was described as a triangle (roof) over a square (walls)."
+  },
+  {
+    "question": "What helps the computer guess what an object is?",
+    "options": ["Speed of typing", "Brightness of screen", "Features like shapes and edges", "Sound of voice"],
+    "answer": "Features like shapes and edges",
+    "explanation": "AI uses image features to recognize patterns and make guesses."
+  },
+  {
+    "question": "What happens when students draw using a digital AI tool?",
+    "options": ["It copies the drawing", "It ignores the drawing", "The AI guesses what was drawn", "It prints the drawing"],
+    "answer": "The AI guesses what was drawn",
+    "explanation": "AI models are trained to recognize drawings and make educated guesses."
+  },
+  {
+    "question": "Which of these is a real-life use of image classification?",
+    "options": ["Cooking food", "Face recognition on phones", "Making paper planes", "Listening to music"],
+    "answer": "Face recognition on phones",
+    "explanation": "Phones use AI to classify images and match them to your face."
+  },
+  {
+    "question": "How do AI models learn to identify drawings?",
+    "options": ["By asking questions", "By reading stories", "By looking at thousands of pictures", "By copying human thoughts"],
+    "answer": "By looking at thousands of pictures",
+    "explanation": "AI learns to classify images by training on large sets of labeled pictures."
+  }
+]

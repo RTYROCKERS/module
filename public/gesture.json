@@ -1,0 +1,62 @@
+[
+  {
+    "question": "What does a webcam do?",
+    "options": ["Plays music", "Tracks time", "Shows the computer what it sees", "Opens apps"],
+    "answer": "Shows the computer what it sees",
+    "explanation": "A webcam is a small camera that sends live video to the computer so it can see you."
+  },
+  {
+    "question": "What is a 'key point' on the hand?",
+    "options": ["A spot on your leg", "An important point like a fingertip or wrist", "The keyboard’s spacebar", "A button on the screen"],
+    "answer": "An important point like a fingertip or wrist",
+    "explanation": "Key points help the computer understand your hand's shape and motion."
+  },
+  {
+    "question": "What does 'hand detection' mean?",
+    "options": ["Drawing a hand", "Washing hands", "Computer finding your hand in an image", "Using a fingerprint sensor"],
+    "answer": "Computer finding your hand in an image",
+    "explanation": "Hand detection helps the computer recognize and locate the hand in a picture or video."
+  },
+  {
+    "question": "What is 'gesture' in AI?",
+    "options": ["A finger drawing", "A typed message", "A hand movement that means something", "A color setting"],
+    "answer": "A hand movement that means something",
+    "explanation": "Gestures are used to communicate or control things with just hand movements."
+  },
+  {
+    "question": "How does the computer know where your finger is?",
+    "options": ["By guessing", "By using a sensor in your hand", "By finding key points using the webcam", "By touching the screen"],
+    "answer": "By finding key points using the webcam",
+    "explanation": "The webcam sends images, and the computer tracks key points like your fingertip."
+  },
+  {
+    "question": "Why do we mark points on a hand drawing?",
+    "options": ["To color it", "To make it pretty", "To help understand how AI tracks fingers", "To write names"],
+    "answer": "To help understand how AI tracks fingers",
+    "explanation": "This mimics how AI software detects important hand locations."
+  },
+  {
+    "question": "What happens if you move your finger too fast in the game?",
+    "options": ["It breaks the computer", "The game lags", "The AI may lose track of your finger", "You win the game"],
+    "answer": "The AI may lose track of your finger",
+    "explanation": "Fast movement can confuse the tracking system if it can’t follow the finger quickly."
+  },
+  {
+    "question": "Where can gesture tracking be useful?",
+    "options": ["Typing fast", "Watching movies", "Controlling a robot", "Cooking food"],
+    "answer": "Controlling a robot",
+    "explanation": "Gestures can be used to control devices like robots or tools hands-free."
+  },
+  {
+    "question": "Why does AI use dots to track your hand?",
+    "options": ["Dots are pretty", "Dots show where the mouse is", "Dots represent key points for understanding shape", "Dots are easier to draw"],
+    "answer": "Dots represent key points for understanding shape",
+    "explanation": "The dots mark important parts of the hand so the AI can follow motion and shape."
+  },
+  {
+    "question": "How does the Fruit Ninja–style game work?",
+    "options": ["You press buttons to slice fruit", "You shout at the screen", "You use your finger, and the AI tracks it to slice fruits", "The mouse controls the sword"],
+    "answer": "You use your finger, and the AI tracks it to slice fruits",
+    "explanation": "The game uses finger tracking with AI to slice fruits based on your movement."
+  }
+]

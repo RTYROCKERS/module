@@ -1,0 +1,62 @@
+/* Parent Game Container */
+.game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Logout Button */
+  .logout-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .logout-btn:hover {
+    background: darkred;
+  }
+  
+  /* Canvases */
+  .draw, .hand {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Lives Counter */
+  .lives-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+    z-index: 1000;
+  }
+  
+  /* Score Counter */
+  .score-container {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 1000;
+  }
+  
