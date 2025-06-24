@@ -35,22 +35,62 @@ export default function DoodleClassifier() {
     ctx.strokeStyle = "black";
 
     let drawing = false;
-    const start = (e) => { drawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); };
-    const draw = (e) => { if (!drawing) return; ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); };
-    const stop = () => { drawing = false; ctx.beginPath(); };
 
+    const getXY = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: e.touches[0].clientX - rect.left,
+          y: e.touches[0].clientY - rect.top,
+        };
+      }
+      return { x: e.offsetX, y: e.offsetY };
+    };
+
+    const start = (e) => {
+      drawing = true;
+      const { x, y } = getXY(e);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    };
+
+    const draw = (e) => {
+      if (!drawing) return;
+      const { x, y } = getXY(e);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    };
+
+    const stop = () => {
+      drawing = false;
+      ctx.beginPath();
+    };
+
+    // Mouse events
     canvas.addEventListener("mousedown", start);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stop);
     canvas.addEventListener("mouseleave", stop);
+
+    // Touch events
+    canvas.addEventListener("touchstart", start);
+    canvas.addEventListener("touchmove", draw);
+    canvas.addEventListener("touchend", stop);
+    canvas.addEventListener("touchcancel", stop);
 
     return () => {
       canvas.removeEventListener("mousedown", start);
       canvas.removeEventListener("mousemove", draw);
       canvas.removeEventListener("mouseup", stop);
       canvas.removeEventListener("mouseleave", stop);
+
+      canvas.removeEventListener("touchstart", start);
+      canvas.removeEventListener("touchmove", draw);
+      canvas.removeEventListener("touchend", stop);
+      canvas.removeEventListener("touchcancel", stop);
     };
   }, []);
+
 
   const handleSubmit = async () => {
     if (!model) return;
