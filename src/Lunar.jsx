@@ -8,11 +8,47 @@ export default function LanderMissionGame() {
   const [message, setMessage] = useState('')
   const startedRef = useRef(false)
   const stoppedRef = useRef(false)
+  const userInput = useRef({ throttleUp: false, left: false, right: false }) // <-- Moved here
 
-  useEffect(() => {
-    tf.loadLayersModel('/models/lander_policy/model.json')
-      .then(m => modelRef.current = m)
-  }, [])
+  let landingPadX;
+  let landingPadY;
+  let landingPadCenterX;
+
+  function computeAdvice(state, padCenterX) {
+    let throttleAdv = 0;
+    let torqueAdv   = 0;
+
+    if (state.y > 200) throttleAdv = 100;
+    else if (state.y < 100) throttleAdv = 0;
+    else throttleAdv = 50;
+
+    if (Math.abs(state.x - padCenterX) < 200) throttleAdv = 0;
+
+    const angleDeg = state.angle * (180 / Math.PI);
+    if (angleDeg > 10) torqueAdv = -1;
+    else if (angleDeg < -10) torqueAdv = 1;
+
+    const dx = padCenterX - state.x;
+    if (Math.abs(dx) > 200) {
+      torqueAdv += dx > 0 ? 0.5 : -0.5;
+    }
+
+    const dist = Math.abs(dx);
+    const vx = state.vx;
+
+    if (dist > 800 && Math.abs(vx) > 60) {
+      torqueAdv += vx > 0 ? -1 : +1;
+    } else if (dist > 400 && Math.abs(vx) > 30) {
+      torqueAdv += vx > 0 ? -1 : +1;
+    } else if (Math.abs(vx) > 15) {
+      torqueAdv += vx > 0 ? -1 : +1;
+    }
+
+    throttleAdv = Math.max(0, Math.min(100, throttleAdv));
+    torqueAdv = Math.max(-1, Math.min(1, torqueAdv));
+
+    return [throttleAdv, torqueAdv];
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -24,29 +60,29 @@ export default function LanderMissionGame() {
     const LAUNCH_ZONE = 200, LANDING_ZONE = 200
 
     let throttle = 0
-    let userInput = { throttleUp: false, left: false, right: false }
 
     let state = {
-      x: 100, y: 100, // Start elevated
+      x: 100, y: 100,
       vx: 0, vy: 0,
       angle: 0, omega: 0
     }
 
     const terrain = generateTerrain(WORLD_WIDTH, H)
-    const landingPadX = WORLD_WIDTH - LANDING_ZONE
-    const landingPadY = terrain[landingPadX]
+    landingPadX = WORLD_WIDTH - LANDING_ZONE
+    landingPadY = terrain[landingPadX]
+    landingPadCenterX = landingPadX + LANDING_ZONE / 2
 
     const onKeyDown = e => {
       if (!stoppedRef.current) startedRef.current = true
-      if (e.key === 'ArrowUp') userInput.throttleUp = true
-      if (e.key === 'ArrowLeft') userInput.left = true
-      if (e.key === 'ArrowRight') userInput.right = true
+      if (e.key === 'ArrowUp') userInput.current.throttleUp = true
+      if (e.key === 'ArrowLeft') userInput.current.left = true
+      if (e.key === 'ArrowRight') userInput.current.right = true
     }
 
     const onKeyUp = e => {
-      if (e.key === 'ArrowUp') userInput.throttleUp = false
-      if (e.key === 'ArrowLeft') userInput.left = false
-      if (e.key === 'ArrowRight') userInput.right = false
+      if (e.key === 'ArrowUp') userInput.current.throttleUp = false
+      if (e.key === 'ArrowLeft') userInput.current.left = false
+      if (e.key === 'ArrowRight') userInput.current.right = false
     }
 
     window.addEventListener('keydown', onKeyDown)
@@ -69,48 +105,42 @@ export default function LanderMissionGame() {
     }
 
     function step(throttleInput, torqueInput) {
-        // Only update throttle in user mode
-        if (mode === 'user') {
-            if (userInput.throttleUp) {
-            throttle += 0.02
-            } else {
-            throttle -= 0.02
-            }
-            throttle = Math.max(0, Math.min(throttle, 1))
+      if (mode === 'user') {
+        if (userInput.current.throttleUp) {
+          throttle += 0.02
         } else {
-            throttle = throttleInput
+          throttle -= 0.02
         }
+        throttle = Math.max(0, Math.min(throttle, 1))
+      } else {
+        throttle = throttleInput
+      }
 
-        const thrust = throttle * 20
-        const fx = Math.sin(state.angle) * thrust
-        const fy = -Math.cos(state.angle) * thrust + G * mass
-        const ax = fx / mass, ay = fy / mass
+      const thrust = throttle * 20
+      const fx = Math.sin(state.angle) * thrust
+      const fy = -Math.cos(state.angle) * thrust + G * mass
+      const ax = fx / mass, ay = fy / mass
 
-        state.vx += ax * DT
-        state.vy += ay * DT
-        state.x += state.vx * DT
-        state.y += state.vy * DT
+      state.vx += ax * DT
+      state.vy += ay * DT
+      state.x += state.vx * DT
+      state.y += state.vy * DT
 
-        const torque = torqueInput * 1.5
-        const alpha = torque / I
-        state.omega += alpha * DT
-        state.omega *= 0.98
-        state.angle += state.omega * DT
+      const torque = torqueInput * 1.5
+      const alpha = torque / I
+      state.omega += alpha * DT
+      state.omega *= 0.98
+      state.angle += state.omega * DT
     }
-
 
     function draw() {
       ctx.clearRect(0, 0, W, H)
-    //   ctx.fillStyle = '#111'
-    //   ctx.fillRect(0, 0, W, H)
-
       const inLandingZone = state.x >= landingPadX && state.x <= landingPadX + LANDING_ZONE
       const camX = inLandingZone ? WORLD_WIDTH - W : state.x - W / 2
 
       ctx.save()
       ctx.translate(-camX, 0)
 
-      // Terrain
       ctx.beginPath()
       ctx.moveTo(0, terrain[0])
       for (let i = 1; i < terrain.length; i++) {
@@ -122,83 +152,54 @@ export default function LanderMissionGame() {
       ctx.fillStyle = '#654321'
       ctx.fill()
 
-      // Launch and landing pads
       ctx.fillStyle = 'green'
       ctx.fillRect(0, terrain[0] - 4, LAUNCH_ZONE, 4)
 
       ctx.fillStyle = 'red'
       ctx.fillRect(landingPadX, landingPadY - 4, LANDING_ZONE, 4)
 
-    
-      // Lander (sphere)
-        ctx.save()
-        ctx.translate(state.x, state.y)
-        ctx.rotate(state.angle)
-        ctx.fillStyle = 'silver'
-
-        // Body
-        ctx.fillRect(-6, -10, 12, 20)
-
-        // Cone
-        ctx.beginPath()
-        ctx.moveTo(-6, -10)
-        ctx.lineTo(0, -18)
-        ctx.lineTo(6, -10)
-        ctx.closePath()
-        ctx.fill()
-
-        // Boosters
-        ctx.fillStyle = 'darkgray'
-        ctx.fillRect(-10, 0, 4, 10)
-        ctx.fillRect(6, 0, 4, 10)
-
-        ctx.restore()
-
-
+      ctx.save()
+      ctx.translate(state.x, state.y)
+      ctx.rotate(state.angle)
+      ctx.fillStyle = 'silver'
+      ctx.fillRect(-6, -10, 12, 20)
+      ctx.beginPath()
+      ctx.moveTo(-6, -10)
+      ctx.lineTo(0, -18)
+      ctx.lineTo(6, -10)
+      ctx.closePath()
+      ctx.fill()
+      ctx.fillStyle = 'darkgray'
+      ctx.fillRect(-10, 0, 4, 10)
+      ctx.fillRect(6, 0, 4, 10)
+      ctx.restore()
       ctx.restore()
 
-      // HUD
       ctx.fillStyle = 'black'
       ctx.font = '14px monospace'
       ctx.fillText(`Throttle: ${(throttle * 100).toFixed(0)}%`, 10, 20)
-      ctx.fillText(`x: ${Math.floor(2000-state.x)}`, 10, 35)
-      ctx.fillText(`↑ Throttle | ← Left | → Right`, 0, H-200 )
-    }
-
-    function predictAI() {
-      const m = modelRef.current
-      if (!m) return [0, 0]
-      const input = tf.tensor2d([[state.x / WORLD_WIDTH, state.y / H, state.vx / 10, state.vy / 10, state.angle / Math.PI, state.omega / 5]])
-      const [t, o] = m.predict(input).arraySync()[0]
-      tf.dispose(input)
-      return [Math.min(Math.max(t, 0), 1), Math.min(Math.max(o, -1), 1)]
+      ctx.fillText(`x: ${Math.floor(2000 - state.x)}`, 10, 35)
+      ctx.fillText(`↑ Throttle | ← Left | → Right`, 0, H - 200)
     }
 
     function checkLanding() {
-        const tx = Math.floor(state.x)
-        const terrainY = terrain[tx] || 9999
-        const inPad = state.x >= landingPadX && state.x <= landingPadX + LANDING_ZONE
-        const outOfPadRight = state.x > landingPadX + LANDING_ZONE
+      const tx = Math.floor(state.x)
+      const terrainY = terrain[tx] || 9999
+      const inPad = state.x >= landingPadX && state.x <= landingPadX + LANDING_ZONE
+      const outOfPadRight = state.x > landingPadX + LANDING_ZONE
 
-        if (state.y >= terrainY - 5) {
-            if (inPad) {
-            setMessage('🎉 Mission Complete')
-            } else {
-            setMessage('💥 Crash! Try Again.')
-            }
-            cancelAnimationFrame(raf)
-            stoppedRef.current = true
-            return
-        }
+      if (state.y >= terrainY - 5) {
+        setMessage(inPad ? '🎉 Mission Complete' : '💥 Crash! Try Again.')
+        cancelAnimationFrame(raf)
+        stoppedRef.current = true
+        return
+      }
 
-        // Already landed but moved out
-        if (stoppedRef.current && outOfPadRight) {
-            setMessage('🚫 Drifted beyond Landing Zone. Failed.')
-            cancelAnimationFrame(raf)
-        }
+      if (stoppedRef.current && outOfPadRight) {
+        setMessage('🚫 Drifted beyond Landing Zone. Failed.')
+        cancelAnimationFrame(raf)
+      }
     }
-
-
 
     function reset() {
       state = { x: 100, y: 100, vx: 0, vy: 0, angle: 0, omega: 0 }
@@ -211,26 +212,27 @@ export default function LanderMissionGame() {
 
     let raf
     const loop = () => {
-        let torque = 0
-        let currentThrottle = throttle
+      let torque = 0
+      let currentThrottle = throttle
 
-        if (mode === 'user') {
-            if (userInput.left) torque = -1
-            else if (userInput.right) torque = 1
-        } else {
-            const [aiThrottle, aiTorque] = predictAI()
-            currentThrottle = aiThrottle
-            torque = aiTorque
-        }
+      if (mode === 'user') {
+        if (userInput.current.left) torque = -1
+        else if (userInput.current.right) torque = 1
+      } else {
+        const [advThrottle, advTorque] = computeAdvice(state, landingPadCenterX)
+        currentThrottle = advThrottle
+        torque = advTorque
+      }
 
-        if (startedRef.current && !stoppedRef.current) {
-            step(currentThrottle, torque)
-        }
+      if (startedRef.current && !stoppedRef.current) {
+        step(currentThrottle, torque)
+      }
 
-        draw()
-        checkLanding()
-        raf = requestAnimationFrame(loop)
+      draw()
+      checkLanding()
+      raf = requestAnimationFrame(loop)
     }
+
     if (mode === 'ai') startedRef.current = true
     loop()
 
@@ -248,9 +250,7 @@ export default function LanderMissionGame() {
       <button onClick={() => setMode('ai')}>AI Mode</button>
       {mode === 'ai' && (
         <div className="ai-container">
-          {/* Your AI mode content here */}
-          <h2>AI Mode (not available)</h2>
-          <p>The AI model is currently in development phase.</p>
+          <h2>AI Mode</h2>
         </div>
       )}
       {message && (
@@ -259,35 +259,7 @@ export default function LanderMissionGame() {
           <button onClick={() => window.location.reload()}>Reset</button>
         </div>
       )}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', margin: '10px 0' }}>
-        <button
-          onMouseDown={() => userInput.left = true}
-          onMouseUp={() => userInput.left = false}
-          onTouchStart={() => userInput.left = true}
-          onTouchEnd={() => userInput.left = false}
-        >
-          ◀️ Left
-        </button>
-
-        <button
-          onMouseDown={() => userInput.throttleUp = true}
-          onMouseUp={() => userInput.throttleUp = false}
-          onTouchStart={() => userInput.throttleUp = true}
-          onTouchEnd={() => userInput.throttleUp = false}
-        >
-          🔼 Throttle
-        </button>
-
-        <button
-          onMouseDown={() => userInput.right = true}
-          onMouseUp={() => userInput.right = false}
-          onTouchStart={() => userInput.right = true}
-          onTouchEnd={() => userInput.right = false}
-        >
-          ▶️ Right
-        </button>
-      </div>
-
+      
       <canvas ref={canvasRef} width={600} height={400} />
     </div>
   )

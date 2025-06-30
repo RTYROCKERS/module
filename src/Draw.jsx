@@ -7,11 +7,11 @@ export default function DoodleClassifier() {
   const [loading, setLoading] = useState(true);
 
   const classes = [
-    "apple","banana","cat","dog","car","house","tree","fish","book","chair",
-    "cup","flower","shoe","sun","umbrella","cloud","face","eye","hand","hat"
+     "apple", "banana", "cat", "car", "house", 
+      "fish", "chair", "umbrella", "sun", "hand"
   ];
 
-  const modelURL = "https://teachablemachine.withgoogle.com/models/7wf_rLTxN/"; // Replace with your model URL
+  const modelURL = "https://teachablemachine.withgoogle.com/models/n6MXzC6RB/"; // Replace with your model URL
 
   useEffect(() => {
     async function loadModel() {
