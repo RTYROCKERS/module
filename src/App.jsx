@@ -5,6 +5,7 @@ import Fruit from "./Fruit";
 import Lander from "./Lunar";
 import SemanticCube from "./Visual";
 import DoodleClassifier from "./Draw";
+import LandmarkSwitcher from "./Landmarks";
 
 const modules = [
   {
@@ -20,7 +21,8 @@ const modules = [
     links: {
       document: import.meta.env.VITE_M2_DOC1,
       quiz: import.meta.env.VITE_M2_QUIZ1,
-      game: "Fruit"
+      game: "Fruit",
+      Landmark_Viewer: "Land"
     }
   },
   {
@@ -55,8 +57,13 @@ const Sidebar = ({ modules, onSelect }) => (
     {modules.map((module, idx) => (
       <div key={idx} className="module-card">
         <h2>{module.title}</h2>
-        <button onClick={() => onSelect(module.links.document)}>View Document</button>
+        <button onClick={() => onSelect(module.links.document)}>View Slides</button>
         <button onClick={() => onSelect(module.links.quiz)}>Take Quiz</button>
+        {module.title === "Gesture Recognization" && (
+          <button onClick={() => onSelect(module.links.Landmark_Viewer)}>
+            Landmark Viewer
+          </button>
+        )}
         <button onClick={() => onSelect(module.links.game)}>Play Game</button>
       </div>
     ))}
@@ -73,6 +80,7 @@ export default function App() {
     if (view === "Fruit") return <Fruit />;
     if (view === "Lunar") return <Lander />;
     if (view === "Visual") return <SemanticCube />;
+    if (view === "Land") return <LandmarkSwitcher />;
     return <IframeView url={view} />;
   };
 

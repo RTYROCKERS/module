@@ -53,5 +53,62 @@
     ],
     "answer": "Where words and sentences appear in meaning space",
     "explanation": "The Word Visualizer shows how meaning changes depending on the words and their context."
+  },
+  {
+    "question": "What is 'context' in a sentence?",
+    "options": [
+      "The topic of the sentence",
+      "The background image",
+      "The words around a word",
+      "The color of the text"
+    ],
+    "answer": "The words around a word",
+    "explanation": "Context means the surrounding words that help give a word its meaning."
+  },
+  {
+    "question": "Why might the same word have different meanings in different sentences?",
+    "options": [
+      "It’s spelled differently",
+      "It sounds funny",
+      "Because of the sentence's context",
+      "Because computers guess randomly"
+    ],
+    "answer": "Because of the sentence's context",
+    "explanation": "The meaning of a word changes based on how it’s used in a sentence."
+  },
+  {
+    "question": "How does a chatbot like ChatGPT understand what you're saying?",
+    "options": [
+      "It copies answers from the internet",
+      "It looks only at the first word",
+      "It finds patterns in the sentence and uses context",
+      "It asks a human to help"
+    ],
+    "answer": "It finds patterns in the sentence and uses context",
+    "explanation": "Chatbots understand your message by looking at the meaning of your words and the context they appear in."
+  },
+
+  {
+    "question": "Why is converting words into numbers helpful for computers?",
+    "options": [
+      "Computers love numbers",
+      "It makes the words look better",
+      "It helps AI learn patterns and understand meaning",
+      "It saves battery life"
+    ],
+    "answer": "It helps AI learn patterns and understand meaning",
+    "explanation": "Turning words into numbers helps AI understand relationships between meanings and learn how to respond."
+  },
+  {
+    "question": "What happens when you change just one word in a sentence?",
+    "options": [
+      "The whole meaning can change",
+      "The sentence disappears",
+      "The computer ignores it",
+      "Nothing happens at all"
+    ],
+    "answer": "The whole meaning can change",
+    "explanation": "AI detects even small changes in words because they can shift the sentence's meaning."
   }
 ]
+

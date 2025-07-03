@@ -24,10 +24,10 @@
     "explanation": "Classification is when the computer says, 'This looks like a tree' based on features."
   },
   {
-    "question": "Why did students draw shapes on a grid in the activity?",
-    "options": ["To decorate the page", "To practice drawing", "To mimic how a computer sees images", "To write notes"],
-    "answer": "To mimic how a computer sees images",
-    "explanation": "Drawing in grids helps students understand how images are stored in pixels."
+    "question": "How does image classification help in farming?",
+    "options": ["It waters the crops", "It takes photos of animals", "It identifies healthy and unhealthy plants", "It builds tractors"],
+    "answer": "It identifies healthy and unhealthy plants",
+    "explanation": "AI can classify images of crops to detect signs of disease or poor health, helping farmers take action quickly."
   },
   {
     "question": "Which shape has a triangle on top and a square below?",
@@ -42,7 +42,7 @@
     "explanation": "AI uses image features to recognize patterns and make guesses."
   },
   {
-    "question": "What happens when students draw using a digital AI tool?",
+    "question": "What happens when we draw using a digital AI tool?",
     "options": ["It copies the drawing", "It ignores the drawing", "The AI guesses what was drawn", "It prints the drawing"],
     "answer": "The AI guesses what was drawn",
     "explanation": "AI models are trained to recognize drawings and make educated guesses."

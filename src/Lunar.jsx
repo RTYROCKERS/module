@@ -18,44 +18,44 @@ export default function LanderMissionGame() {
     let throttleAdv = 0;
     let torqueAdv   = 0;
 
-    if (state.y > 200) throttleAdv = 100;
+    if (state.y >= 120) throttleAdv = 1;
     else if (state.y < 100) throttleAdv = 0;
-    else throttleAdv = 50;
+    else throttleAdv = 0.5;
 
-    if (Math.abs(state.x - padCenterX) < 200) throttleAdv = 0;
+    if (Math.abs(state.x - padCenterX) < 100) throttleAdv = 0;
 
     const angleDeg = state.angle * (180 / Math.PI);
-    if (angleDeg > 10) torqueAdv = -1;
-    else if (angleDeg < -10) torqueAdv = 1;
+    if (angleDeg > 10) torqueAdv = -0.4; // reduced from -0.8
+    else if (angleDeg < -10) torqueAdv = 0.4; // reduced from 0.8
 
     const dx = padCenterX - state.x;
-    if (Math.abs(dx) > 200) {
-      torqueAdv += dx > 0 ? 0.5 : -0.5;
+    if (Math.abs(dx) > 100) {
+      torqueAdv += dx > 0 ? 0.1 : -0.1; // reduced from 0.2
     }
 
     const dist = Math.abs(dx);
     const vx = state.vx;
 
-    if (dist > 800 && Math.abs(vx) > 60) {
-      torqueAdv += vx > 0 ? -1 : +1;
-    } else if (dist > 400 && Math.abs(vx) > 30) {
-      torqueAdv += vx > 0 ? -1 : +1;
+    if (dist > 400 && Math.abs(vx) > 60) {
+      torqueAdv += vx > 0 ? -0.2 : 0.2; // reduced from ±0.3
+    } else if (dist > 200 && Math.abs(vx) > 30) {
+      torqueAdv += vx > 0 ? -0.2 : 0.2; // reduced from ±0.3
     } else if (Math.abs(vx) > 15) {
-      torqueAdv += vx > 0 ? -1 : +1;
+      torqueAdv += vx > 0 ? -0.15 : 0.15; // reduced from ±0.3
     }
 
-    throttleAdv = Math.max(0, Math.min(100, throttleAdv));
+    throttleAdv = Math.max(0, Math.min(1, throttleAdv));
     torqueAdv = Math.max(-1, Math.min(1, torqueAdv));
 
     return [throttleAdv, torqueAdv];
-  }
+}
 
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
     const W = 600, H = 400
 
-    const WORLD_WIDTH = 2000
+    const WORLD_WIDTH = 1000
     const G = 9.8, DT = 1 / 60, mass = 1, I = 0.1
     const LAUNCH_ZONE = 200, LANDING_ZONE = 200
 
@@ -178,7 +178,7 @@ export default function LanderMissionGame() {
       ctx.fillStyle = 'black'
       ctx.font = '14px monospace'
       ctx.fillText(`Throttle: ${(throttle * 100).toFixed(0)}%`, 10, 20)
-      ctx.fillText(`x: ${Math.floor(2000 - state.x)}`, 10, 35)
+      ctx.fillText(`x: ${Math.floor(WORLD_WIDTH - state.x)}`, 10, 35)
       ctx.fillText(`↑ Throttle | ← Left | → Right`, 0, H - 200)
     }
 

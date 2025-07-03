@@ -5,7 +5,6 @@ export default function DoodleClassifier() {
   const [model, setModel] = useState(null);
   const [prediction, setPrediction] = useState("Loading Teachable Machine model...");
   const [loading, setLoading] = useState(true);
-
   const classes = [
      "apple", "banana", "cat", "car", "house", 
       "fish", "chair", "umbrella", "sun", "hand"
@@ -139,7 +138,25 @@ export default function DoodleClassifier() {
         <br />
         <strong>{classes.join(", ")}</strong>
       </p>
-
+      <a
+        href="https://quickdraw.withgoogle.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: 'black',
+          fontWeight: '600',
+          textDecoration: 'none',
+          border: '1px solid black',
+          padding: '8px 16px',
+          borderRadius: '8px',
+          display: 'inline-block',
+          marginTop: '12px',
+          transition: 'background-color 0.2s',
+        }}
+        onMouseOver={e => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
+        onMouseOut={e => (e.currentTarget.style.backgroundColor = 'transparent')}>
+        Try Google's image classifier trained on millions of drawings
+      </a>
       <h2>🎨 Doodle Classifier (Teachable Machine)</h2>
 
       <canvas
